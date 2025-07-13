@@ -29,7 +29,6 @@ def round_handler(is_endless, SETTINGS):
             STORED_VARIABLES['ENDLESS_ON'] == False
             break
         round_count += 1
-        print(f"DEBUG: {random_word}")
         print(f"Your word is: {"".join(split_asterisks)}")
         print(f"You are on: {round_count} of {GUESS_LIMIT} guesses.")
         player_input = input("Guess: ")

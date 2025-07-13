@@ -44,7 +44,6 @@ def settings_menu(SETTINGS):
             if choice == '1':
                 player_word = input("Word to add: ")
                 SETTINGS['WORD_LIST'].append(player_word.upper())
-                print(f"DEBUG: {SETTINGS['WORD_LIST']}")
                 continue
             elif choice == '2':
                 player_guess = input("Guess Limit: ")
@@ -58,7 +57,6 @@ def settings_menu(SETTINGS):
                     continue
                 else:
                     SETTINGS['GUESS_LIMIT'] = int(player_guess)
-                    print(f"DEBUG: {SETTINGS['GUESS_LIMIT']}")
                     continue
             elif choice == '3':
                 return
