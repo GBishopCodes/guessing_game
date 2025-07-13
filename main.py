@@ -26,7 +26,6 @@
 ## 4. Quit <-- Exits Program
 ##
 import random
-from globals import *
 from menus import main_menu
 
 main_menu()

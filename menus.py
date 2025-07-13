@@ -1,12 +1,14 @@
 from handler import round_handler
-from globals import *
 
 def main_menu():
+
+    SETTINGS = {
+        'GUESS_LIMIT': 3,
+        'WORD_LIST': ['BIKE', 'MISCHIEF', 'LUNATIC', 'GOOFBALL'],
+        'HIGH_SCORE': 0
+    }
+    
     while True:
-        global HIGH_SCORE
-        global GUESS_LIMIT
-        global WORD_LIST
-        global ENDLESS_ON
         HIGH_SCORE = 0
         print('>Main Menu:')
         print('1. One Run')
@@ -17,11 +19,12 @@ def main_menu():
         valid_choices = ['1', '2', '3', '4']
         if choice in valid_choices:
             if choice == '1':
-                round_handler(False)
+                round_handler(False, SETTINGS)
             elif choice == '2':
-                round_handler(True)
+                SETTINGS['HIGH_SCORE'] = 0
+                round_handler(True, SETTINGS)
             elif choice == '3':
-                settings_menu()
+                settings_menu(SETTINGS)
             elif choice == '4':
                 print('Thank you for playing!')
                 return           
@@ -29,12 +32,8 @@ def main_menu():
             print('ERROR: Invalid Choice')
             continue
 
-def settings_menu():
+def settings_menu(SETTINGS):
     while True:
-        global GUESS_LIMIT
-        global WORD_LIST
-        global HIGH_SCORE
-        global ENDLESS_ON
         print('>Settings Menu:')
         print('1. Add Words')
         print('2. Guess Limit')
@@ -44,8 +43,8 @@ def settings_menu():
         if choice in valid_choices:
             if choice == '1':
                 player_word = input("Word to add: ")
-                WORD_LIST.append(player_word.upper())
-                print(f"DEBUG: {WORD_LIST}")
+                SETTINGS['WORD_LIST'].append(player_word.upper())
+                print(f"DEBUG: {SETTINGS['WORD_LIST']}")
                 continue
             elif choice == '2':
                 player_guess = input("Guess Limit: ")
@@ -58,8 +57,8 @@ def settings_menu():
                     print('ERROR: Invalid Choice')
                     continue
                 else:
-                    GUESS_LIMIT = int(player_guess)
-                    print(f"DEBUG: {GUESS_LIMIT}")
+                    SETTINGS['GUESS_LIMIT'] = int(player_guess)
+                    print(f"DEBUG: {SETTINGS['GUESS_LIMIT']}")
                     continue
             elif choice == '3':
                 return

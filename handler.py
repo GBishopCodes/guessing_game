@@ -1,13 +1,21 @@
 import random
-from globals import *
+from menus import *
 
-def round_handler(is_endless):
-    global ENDLESS_ON
-    global HIGH_SCORE
-    global WORD_LIST
-    global GUESS_LIMIT
+
+def round_handler(is_endless, SETTINGS):
+    
+    GUESS_LIMIT = SETTINGS['GUESS_LIMIT']
+    WORD_LIST = SETTINGS['WORD_LIST']
+    HIGH_SCORE = SETTINGS['HIGH_SCORE']
+
+    STORED_VARIABLES = {
+        'ENDLESS_ON': False,
+    }
+
+
+
     if is_endless == True:
-        ENDLESS_ON = True
+        STORED_VARIABLES['ENDLESS_ON'] = True
     random_word = WORD_LIST[random.randint(0,(len(WORD_LIST) - 1))]
     split_word = list(random_word)
     asterisks = ""
@@ -18,7 +26,7 @@ def round_handler(is_endless):
     while True:
         if round_count >= GUESS_LIMIT:
             print(f"You lose. The word was: {random_word}")
-            ENDLESS_ON == False
+            STORED_VARIABLES['ENDLESS_ON'] == False
             break
         round_count += 1
         print(f"DEBUG: {random_word}")
@@ -31,10 +39,11 @@ def round_handler(is_endless):
                 split_asterisks[i] = split_word[i]
         if split_asterisks == split_word:
             print(f"You win! The word was: {random_word}")
-            if ENDLESS_ON == True:
-                print(f"You have won: {HIGH_SCORE} games in a row.")
+            if STORED_VARIABLES['ENDLESS_ON'] == True:
+                SETTINGS['HIGH_SCORE'] += 1
+                print(f"You have won: {SETTINGS['HIGH_SCORE']} games in a row.")
                 print("===========================================")
-                round_handler(True)
+                round_handler(True, SETTINGS)
             break
         elif round_count <= GUESS_LIMIT:
             continue
